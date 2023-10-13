@@ -72,6 +72,7 @@ client.on("ready", () => {
 
 // INTERACTION
 client.on('interactionCreate', async (interaction) => {
+
     if (!interaction.isCommand()) {
         return
     }
@@ -82,7 +83,7 @@ client.on('interactionCreate', async (interaction) => {
         case 'hello':
             interaction.reply({
                 content: "Barf!",
-                // ephemeral: true
+                ephemeral: true,
             })
             break;
         case 'bool':
@@ -118,10 +119,17 @@ client.on('interactionCreate', async (interaction) => {
 
 // BASIC RESPONSES
 client.on("messageCreate", (message) => {
-    switch (message.content) {
+
+    if (message.author.username.toString() == "BluBot")
+        return
+
+    // Play?!
+    func.respondToPlay(message)
+
+    switch (message.content.toLowerCase()) {
         case "https://tenor.com/view/dog-smile-zoom-happy-smiling-dog-gif-16252780":
-            message.reply("That's a nice GIF!");
-            break;
+            message.reply("That's a nice GIF!")
+            break
         default:
             break;
     }

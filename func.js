@@ -17,4 +17,13 @@ function diceRoll(sides) {
         return Math.floor(Math.random() * sides) + 1
 }
 
-module.exports = { getYesOrNo, diceRoll };
+function respondToPlay(message) {
+    if (message.content.toLowerCase().includes("hrat") || message.content.toLowerCase().includes("hrát")) {
+        message.reply("Hrát?!")
+    }
+    else if (message.content.toLowerCase().includes("play")) {
+        message.reply("Play?!")
+    }
+}
+
+module.exports = { getYesOrNo, diceRoll, respondToPlay };

@@ -5,6 +5,7 @@ const { Client, GatewayIntentBits } = require("discord.js")
 const { request } = require("undici")
 
 const func = require("./func")
+const response = require("./response")
 
 const panzerFuchsGuildID = '232923565190545408'
 
@@ -73,9 +74,8 @@ client.on("ready", () => {
 // INTERACTION
 client.on('interactionCreate', async (interaction) => {
 
-    if (!interaction.isCommand()) {
+    if (!interaction.isCommand())
         return
-    }
 
     const { commandName, options } = interaction
 
@@ -83,7 +83,7 @@ client.on('interactionCreate', async (interaction) => {
         case 'hello':
             interaction.reply({
                 content: "Barf!",
-                ephemeral: true,
+                ephemeral: true
             })
             break;
         case 'bool':
@@ -94,11 +94,13 @@ client.on('interactionCreate', async (interaction) => {
             break;
         case 'dice':
             const sides = options.getNumber('sides')
+            const result = func.diceRoll(sides)
 
             interaction.reply({
-                content: `Result of throwing a ${sides}-sided dice:` + '\n> **' + func.diceRoll(sides).toString() + '**',
-                // ephemeral: true
+                content: result[0].toString(),
+                ephemeral: result[1]
             })
+
             break;
         case 'joke':
             await interaction.deferReply({
@@ -123,8 +125,9 @@ client.on("messageCreate", (message) => {
     if (message.author.username.toString() == "BluBot")
         return
 
-    // Play?!
-    func.respondToPlay(message)
+    response.respondToPlay(message)
+    response.respondToCatGif(message)
+    response.respondToDogGif(message)
 
     switch (message.content.toLowerCase()) {
         case "https://tenor.com/view/dog-smile-zoom-happy-smiling-dog-gif-16252780":

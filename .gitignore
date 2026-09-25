@@ -1,7 +1,5 @@
 .env
-BluBotAvatar.png
-BluBotAvatarEd.png
-guide.txt
-package-lock.json
+.idea/
+data/
 node_modules/
-LaunchBlu.bat
+package-lock.json
